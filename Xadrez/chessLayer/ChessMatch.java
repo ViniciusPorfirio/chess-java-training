@@ -27,8 +27,12 @@ public class ChessMatch {
 		return mat;
 	}
 	
-	private void initialSetup() {
-		board.placePiece(new Tower(board ,Color.WHITE), new Position(1, 1));
+	private void placeNewPiece (char column, int row, ChessPiece piece) throws ChessException {
+		board.placePiece(piece, new ChessPosition(column, row).toPosition());
+	}
+	
+	private void initialSetup() throws ChessException {
+		placeNewPiece('b', 6,new Tower(board ,Color.WHITE));
 		board.placePiece(new King(board ,Color.BLACK), new Position(7, 3));
 		board.placePiece(new King(board ,Color.WHITE), new Position(1, 4));
 	}
