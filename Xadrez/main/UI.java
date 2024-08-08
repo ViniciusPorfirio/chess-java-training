@@ -10,14 +10,17 @@ public class UI {
 			for(int j=0; j<pieces.length;j++) {
 				printPiece(pieces[i][j]);
 			}
+			System.out.println();
 		}
+		System.out.print("  a b c d e f g h");
 	}
 	
 	private static void printPiece(ChessPiece piece) {
 		if(piece == null) {
-			System.out.print(" - ");
-		}else {
+			System.out.print("-");
+		}else{
 			System.out.print(piece);
 		}
+			System.out.print(" ");
 	}
 }

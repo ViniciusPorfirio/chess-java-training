@@ -1,11 +1,10 @@
 package boardLayer;
 
-public abstract class Piece extends Board{
+public abstract class Piece {
 	protected Position position;
 	private Board board;
 	
 	public abstract boolean possibleMoves();
-	
 	
 	public Piece(Board board) {
 		this.board = board;
