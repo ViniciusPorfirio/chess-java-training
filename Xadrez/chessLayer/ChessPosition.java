@@ -7,7 +7,7 @@ public class ChessPosition {
 	private int row;
 	
 	public ChessPosition(char column, int row) throws ChessException  {
-		if(column <'a' || column >'h'|| row < '1'|| row > '8') {
+		if(column <'a' || column >'h'|| row < 0|| row > 8) {
 			throw new ChessException("Posição "+column+row+" extrapola os limites do tabuleiro");
 		}
 		this.column = column;

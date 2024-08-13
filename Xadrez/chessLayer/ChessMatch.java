@@ -12,7 +12,7 @@ public class ChessMatch {
 	private ChessPiece enPassantVulnerable;
 	private ChessPiece promote;
 	
-	public ChessMatch() {
+	public ChessMatch() throws ChessException {
 		board = new Board(8,8);
 		initialSetup();
 	}
@@ -32,8 +32,25 @@ public class ChessMatch {
 	}
 	
 	private void initialSetup() throws ChessException {
-		placeNewPiece('b', 6,new Tower(board ,Color.WHITE));
-		board.placePiece(new King(board ,Color.BLACK), new Position(7, 3));
-		board.placePiece(new King(board ,Color.WHITE), new Position(1, 4));
+		placeNewPiece('a', 1,new Tower(board ,Color.BLACK));
+		placeNewPiece('a', 2,new Rook(board ,Color.BLACK));
+		placeNewPiece('b', 2,new Rook(board ,Color.BLACK));
+		placeNewPiece('c', 2,new Rook(board ,Color.BLACK));
+		placeNewPiece('d', 2,new Rook(board ,Color.BLACK));
+		placeNewPiece('e', 2,new Rook(board ,Color.BLACK));
+		placeNewPiece('f', 2,new Rook(board ,Color.BLACK));
+		placeNewPiece('g', 2,new Rook(board ,Color.BLACK));
+		placeNewPiece('h', 2,new Rook(board ,Color.BLACK));
+		
+
+		placeNewPiece('a', 8,new Tower(board ,Color.WHITE));
+		placeNewPiece('a', 7,new Rook(board ,Color.WHITE));
+		placeNewPiece('b', 7,new Rook(board ,Color.WHITE));
+		placeNewPiece('c', 7,new Rook(board ,Color.WHITE));
+		placeNewPiece('d', 7,new Rook(board ,Color.WHITE));
+		placeNewPiece('e', 7,new Rook(board ,Color.WHITE));
+		placeNewPiece('f', 7,new Rook(board ,Color.WHITE));
+		placeNewPiece('g', 7,new Rook(board ,Color.WHITE));
+		placeNewPiece('h', 7,new Rook(board ,Color.WHITE));
 	}
 }

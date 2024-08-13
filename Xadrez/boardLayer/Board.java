@@ -6,7 +6,7 @@ public class Board {
 	private Piece[][] pieces;
 	
 	public Board(int row, int column) {
-		if(rows < 1 || columns < 1) {
+		if(row < 1 || column < 1) {
 			throw new BoardException("Erro ao criar tabulerio, o numero de linhas e de colunas devem ser maior do que 0");
 		}
 		this.rows = row;
@@ -27,7 +27,7 @@ public class Board {
 	}
 	
 	public Piece piece (Position position) {
-		if(!positionExists(rows,columns)) {
+		if(!positionExists(position.getRow(), position.getColumn())) {
 			throw new BoardException("Posição fora dos limites do tabulerio");
 		}
 		return pieces[position.getRow()][position.getColumn()];
