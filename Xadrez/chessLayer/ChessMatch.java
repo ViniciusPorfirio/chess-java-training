@@ -31,6 +31,27 @@ public class ChessMatch {
 		board.placePiece(piece, new ChessPosition(column, row).toPosition());
 	}
 	
+	public Piece makeMove(Position source,Position target) {
+		Piece p = board.removePiece(source);
+		Piece capturedPiece = board.removePiece(target);
+		board.placePiece(p, target);
+		return capturedPiece;
+	}
+	
+	public ChessPiece performChessMove(ChessPosition originalPosition, ChessPosition targetPosition) {
+		Position originalP = originalPosition.toPosition();
+		Position target = targetPosition.toPosition();
+		validateOriginalPosition(originalP);
+		Piece capturedPiece = makeMove(originalP,target);
+		return (ChessPiece)capturedPiece;
+	}
+	
+	private void validateOriginalPosition(Position source) throws ChessException {
+		if(!board.ThereIsAPiece(source)) {
+			throw new ChessException("Não há peças na posição de origem");
+		}
+	}
+	
 	private void initialSetup() throws ChessException {
 		placeNewPiece('a', 1,new Tower(board ,Color.BLACK));
 		placeNewPiece('a', 2,new Rook(board ,Color.BLACK));

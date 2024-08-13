@@ -1,6 +1,12 @@
 package main;
 
+import java.text.ParseException;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+import chessLayer.ChessException;
 import chessLayer.ChessPiece;
+import chessLayer.ChessPosition;
 import chessLayer.Color;
 
 public class UI {
@@ -23,6 +29,17 @@ public class UI {
 	public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
 	public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
 	public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
+	
+	public static ChessPosition readChessPosition (Scanner sc) throws ChessException {
+		try {
+		String s = sc.nextLine();
+		char column = s.charAt(0);
+		int row = Integer.parseInt(s.substring(1));
+		return new ChessPosition(column, row);
+		}catch(RuntimeException e){
+			throw new InputMismatchException("Erro ao ler o input");
+		}
+	}
 	
 	public static void printBoard(ChessPiece[][] pieces) {
 		for(int i=0 ; i<pieces.length; i++) {

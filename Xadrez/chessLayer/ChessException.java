@@ -1,6 +1,8 @@
 package chessLayer;
 
-public class ChessException extends Exception{
+import boardLayer.BoardException;
+
+public class ChessException extends BoardException{
 	
 	private static final long serialVersionUID = 1L;
 
