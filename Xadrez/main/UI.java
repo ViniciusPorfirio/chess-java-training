@@ -65,4 +65,9 @@ public class UI {
 		}
 			System.out.print(" ");
 	}
+	
+	public static void clearScreen() {
+		System.out.println("\033[H\33[2J");
+		System.out.flush();
+	}
 }

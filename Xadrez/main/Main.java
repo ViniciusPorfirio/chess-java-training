@@ -11,17 +11,21 @@ public class Main {
 		Scanner sc = new Scanner(System.in);
 		
 		while(true) {
-		UI.printBoard(chessmatch.getPieces());
-		System.out.println("");
-		System.out.println("Source: ");
-		ChessPosition source = UI.readChessPosition(sc);
-		System.out.println();
-		System.out.println("Target: ");
-		ChessPosition target = UI.readChessPosition(sc);
-
-		ChessPiece capturedPiece = chessmatch.performChessMove(source, target);
-		System.out.println("\033[H\33[2J");
-		System.out.flush();
+			try {
+				UI.clearScreen();
+				UI.printBoard(chessmatch.getPieces());
+				System.out.println("");
+				System.out.println("Source: ");
+				ChessPosition source = UI.readChessPosition(sc);
+				System.out.println();
+				System.out.println("Target: ");
+				ChessPosition target = UI.readChessPosition(sc);
+		
+				ChessPiece capturedPiece = chessmatch.performChessMove(source, target);
+			
+			}catch(ChessException e) {
+				System.out.println(e.getMessage());
+				sc.nextLine();			}
 		}
 	}
 

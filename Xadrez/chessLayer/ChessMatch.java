@@ -50,6 +50,9 @@ public class ChessMatch {
 		if(!board.ThereIsAPiece(source)) {
 			throw new ChessException("Não há peças na posição de origem");
 		}
+		if(!board.piece(source).isThereAnyPossibleMove()) {
+			throw new ChessException("Não há movimentos possiveis");
+		}
 	}
 	
 	private void initialSetup() throws ChessException {
