@@ -13,7 +13,7 @@ public class Main {
 		while(true) {
 			try {
 				UI.clearScreen();
-				UI.printBoard(chessmatch.getPieces());
+				UI.printMatch(chessmatch);
 				System.out.println("");
 				System.out.println("Source: ");
 				ChessPosition source = UI.readChessPosition(sc);

@@ -4,7 +4,10 @@ import java.text.ParseException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import javax.swing.plaf.synth.SynthOptionPaneUI;
+
 import chessLayer.ChessException;
+import chessLayer.ChessMatch;
 import chessLayer.ChessPiece;
 import chessLayer.ChessPosition;
 import chessLayer.Color;
@@ -41,6 +44,13 @@ public class UI {
 		}
 	}
 	
+	public static void printMatch(ChessMatch chessMatch) {
+		printBoard(chessMatch.getPieces());
+		System.out.println();
+		System.out.println("Turno: "+ chessMatch.getTurn());
+		System.out.println("Esperando jogador da cor: "+ chessMatch.getCurrentPlayer());
+	}
+	
 	public static void printBoard(ChessPiece[][] pieces) {
 		for(int i=0 ; i<pieces.length; i++) {
 			System.out.print((8 - i)+" ");
@@ -71,7 +81,7 @@ public class UI {
 		if(piece == null) {
 			System.out.print("-");
 		}else{
-			if(piece.getColor() == Color.WHITE) {
+			if(piece.getColor() == Color.BRANCA) {
 				System.out.print(ANSI_WHITE+piece+ANSI_RESET);
 			}else {
 				System.out.print(ANSI_YELLOW+piece+ANSI_RESET);
