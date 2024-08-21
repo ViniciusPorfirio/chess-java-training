@@ -51,7 +51,6 @@ public class Tower extends ChessPiece {
 			mat[aux.getRow()][aux.getColumn()]=true;
 		}
 		
-		
 		//baixo
 		aux.setPositionValues(position.getRow() +1, position.getColumn());
 		while(getBoard().PositionExists(aux) && !getBoard().ThereIsAPiece(aux)) {

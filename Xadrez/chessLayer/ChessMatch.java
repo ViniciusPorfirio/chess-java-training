@@ -69,17 +69,19 @@ public class ChessMatch {
 	}
 	
 	private void initialSetup() throws ChessException {
+		placeNewPiece('d', 1,new King(board ,Color.BLACK));
 		placeNewPiece('a', 1,new Tower(board ,Color.BLACK));
 		//placeNewPiece('a', 2,new Rook(board ,Color.BLACK));
 		placeNewPiece('b', 2,new Rook(board ,Color.BLACK));
-		placeNewPiece('c', 2,new Rook(board ,Color.BLACK));
+		//placeNewPiece('c', 2,new Rook(board ,Color.BLACK));
 		placeNewPiece('d', 2,new Rook(board ,Color.BLACK));
-		placeNewPiece('e', 2,new Rook(board ,Color.BLACK));
+		//placeNewPiece('e', 2,new Rook(board ,Color.BLACK));
 		placeNewPiece('f', 2,new Rook(board ,Color.BLACK));
 		placeNewPiece('g', 2,new Rook(board ,Color.BLACK));
 		placeNewPiece('h', 2,new Rook(board ,Color.BLACK));
 		
 
+		placeNewPiece('e', 8,new King(board ,Color.WHITE));
 		placeNewPiece('a', 8,new Tower(board ,Color.WHITE));
 		placeNewPiece('a', 7,new Rook(board ,Color.WHITE));
 		placeNewPiece('b', 7,new Rook(board ,Color.WHITE));
