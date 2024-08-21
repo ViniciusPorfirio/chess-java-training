@@ -1,8 +1,13 @@
 package main;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
-import chessLayer.*;
+import chessLayer.ChessException;
+import chessLayer.ChessMatch;
+import chessLayer.ChessPiece;
+import chessLayer.ChessPosition;
 
 public class Main {
 
@@ -10,21 +15,27 @@ public class Main {
 		ChessMatch chessmatch = new ChessMatch();
 		Scanner sc = new Scanner(System.in);
 		
+		List <ChessPiece> capturedPieces = new ArrayList<>();
+		
 		while(true) {
 			try {
 				UI.clearScreen();
-				UI.printMatch(chessmatch);
+				UI.printMatch(chessmatch, capturedPieces);
 				System.out.println("");
-				System.out.println("Source: ");
+				System.out.println("Casa de origem: ");
 				ChessPosition source = UI.readChessPosition(sc);
 				boolean[][] possibleMoves = chessmatch.possibleMoves(source);
 				UI.clearScreen();
 				UI.printBoard(chessmatch.getPieces(), possibleMoves);
 				System.out.println();
-				System.out.println("Target: ");
+				System.out.println("Casa de alvo: ");
 				ChessPosition target = UI.readChessPosition(sc);
 		
 				ChessPiece capturedPiece = chessmatch.performChessMove(source, target);
+				
+				if(capturedPiece != null) {
+					capturedPieces.add(capturedPiece);
+				}
 			
 			}catch(ChessException e) {
 				System.out.println(e.getMessage());

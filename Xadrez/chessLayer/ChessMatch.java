@@ -1,7 +1,14 @@
 package chessLayer;
 
-import boardLayer.*;
-import chessLayer.piecesTypes.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import boardLayer.Board;
+import boardLayer.Piece;
+import boardLayer.Position;
+import chessLayer.piecesTypes.King;
+import chessLayer.piecesTypes.Rook;
+import chessLayer.piecesTypes.Tower;
 
 public class ChessMatch {
 	private Board board;
@@ -11,6 +18,9 @@ public class ChessMatch {
 	private boolean checkMate;
 	private ChessPiece enPassantVulnerable;
 	private ChessPiece promote;
+	
+	List <ChessPiece> piecesOnTheBoard = new ArrayList<>();
+	List <ChessPiece> capturedPieces = new ArrayList<>();
 	
 	public ChessMatch() throws ChessException {
 		board = new Board(8,8);
@@ -44,12 +54,17 @@ public class ChessMatch {
 	
 	private void placeNewPiece (char column, int row, ChessPiece piece) throws ChessException {
 		board.placePiece(piece, new ChessPosition(column, row).toPosition());
+		piecesOnTheBoard.add(piece);
 	}
 	
 	public Piece makeMove(Position source,Position target) {
 		Piece p = board.removePiece(source);
 		Piece capturedPiece = board.removePiece(target);
 		board.placePiece(p, target);
+		if(capturedPiece != null) {
+			piecesOnTheBoard.remove(capturedPiece);
+			capturedPieces.add((ChessPiece)capturedPiece);
+		}
 		return capturedPiece;
 	}
 	
@@ -102,7 +117,7 @@ public class ChessMatch {
 
 		placeNewPiece('e', 8,new King(board ,Color.BRANCA));
 		placeNewPiece('a', 8,new Tower(board ,Color.BRANCA));
-		placeNewPiece('a', 7,new Rook(board ,Color.BRANCA));
+		//placeNewPiece('a', 7,new Rook(board ,Color.BRANCA));
 		placeNewPiece('b', 7,new Rook(board ,Color.BRANCA));
 		placeNewPiece('c', 7,new Rook(board ,Color.BRANCA));
 		placeNewPiece('d', 7,new Rook(board ,Color.BRANCA));

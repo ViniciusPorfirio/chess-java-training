@@ -2,7 +2,9 @@ package main;
 
 import java.text.ParseException;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import javax.swing.plaf.synth.SynthOptionPaneUI;
 
@@ -44,9 +46,10 @@ public class UI {
 		}
 	}
 	
-	public static void printMatch(ChessMatch chessMatch) {
+	public static void printMatch(ChessMatch chessMatch, List <ChessPiece> capturedPieces) {
 		printBoard(chessMatch.getPieces());
 		System.out.println();
+		printCapturedPieces(capturedPieces, chessMatch);
 		System.out.println("Turno: "+ chessMatch.getTurn());
 		System.out.println("Esperando jogador da cor: "+ chessMatch.getCurrentPlayer());
 	}
@@ -91,8 +94,23 @@ public class UI {
 			System.out.print(" ");
 	}
 	
+	public static void printCapturedPieces(List <ChessPiece> captured, ChessMatch chessMatch){
+		System.out.println("Peças capturadas: ");
+		if(chessMatch.getCurrentPlayer() == Color.BRANCA) {
+			List <ChessPiece> black = captured.stream().filter(x -> x.getColor() == Color.PRETA).collect(Collectors.toList());
+			System.out.println(ANSI_YELLOW);
+			System.out.println(black);
+			System.out.println(ANSI_RESET);
+		}else if(chessMatch.getCurrentPlayer() == Color.PRETA) {
+			List <ChessPiece> white = captured.stream().filter(x -> x.getColor() == Color.BRANCA).collect(Collectors.toList());
+			System.out.println(ANSI_WHITE);
+			System.out.println(white);
+			System.out.println(ANSI_RESET);
+		}
+	}
+	
 	public static void clearScreen() {
 		System.out.println("\033[H\33[2J");
-		//System.out.flush();
+		System.out.flush();
 	}
 }
