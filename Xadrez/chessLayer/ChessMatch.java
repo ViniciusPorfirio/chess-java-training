@@ -8,7 +8,7 @@ import boardLayer.Board;
 import boardLayer.Piece;
 import boardLayer.Position;
 import chessLayer.piecesTypes.King;
-import chessLayer.piecesTypes.Rook;
+import chessLayer.piecesTypes.Pawn;
 import chessLayer.piecesTypes.Tower;
 
 public class ChessMatch {
@@ -67,7 +67,8 @@ public class ChessMatch {
 	}
 	
 	public Piece makeMove(Position source,Position target) {
-		Piece p = board.removePiece(source);
+		ChessPiece p = (ChessPiece) board.removePiece(source);
+		p.increaseMoveCount();;
 		Piece capturedPiece = board.removePiece(target);
 		board.placePiece(p, target);
 		if(capturedPiece != null) {
@@ -78,7 +79,8 @@ public class ChessMatch {
 	}
 	
 	public void undoMove(Position source, Position target, Piece capturedPiece) {
-		Piece p = board.removePiece(target);
+		ChessPiece p = (ChessPiece)board.removePiece(target);
+		p.decreaseMoveCount();
 		board.placePiece(p, source);
 		
 		if(capturedPiece != null) {
@@ -188,24 +190,24 @@ public class ChessMatch {
 		placeNewPiece('d', 1,new King(board ,Color.PRETA));
 		placeNewPiece('a', 1,new Tower(board ,Color.PRETA));
 		//placeNewPiece('a', 2,new Rook(board ,Color.PRETA));
-		placeNewPiece('b', 2,new Rook(board ,Color.PRETA));
-		placeNewPiece('c', 2,new Rook(board ,Color.PRETA));
+		placeNewPiece('b', 2,new Pawn(board ,Color.PRETA));
+		placeNewPiece('c', 2,new Pawn(board ,Color.PRETA));
 		//placeNewPiece('d', 2,new Rook(board ,Color.PRETA));
-		placeNewPiece('e', 2,new Rook(board ,Color.PRETA));
-		placeNewPiece('f', 2,new Rook(board ,Color.PRETA));
-		placeNewPiece('g', 2,new Rook(board ,Color.PRETA));
-		placeNewPiece('h', 2,new Rook(board ,Color.PRETA));
+		placeNewPiece('e', 2,new Pawn(board ,Color.PRETA));
+		placeNewPiece('f', 2,new Pawn(board ,Color.PRETA));
+		placeNewPiece('g', 2,new Pawn(board ,Color.PRETA));
+		placeNewPiece('h', 2,new Pawn(board ,Color.PRETA));
 		
 
 		placeNewPiece('e', 8,new King(board ,Color.BRANCA));
 		placeNewPiece('a', 8,new Tower(board ,Color.BRANCA));
 		//placeNewPiece('a', 7,new Rook(board ,Color.BRANCA));
-		placeNewPiece('b', 7,new Rook(board ,Color.BRANCA));
-		placeNewPiece('c', 7,new Rook(board ,Color.BRANCA));
-		placeNewPiece('d', 7,new Rook(board ,Color.BRANCA));
-		placeNewPiece('e', 7,new Rook(board ,Color.BRANCA));
-		placeNewPiece('f', 7,new Rook(board ,Color.BRANCA));
-		placeNewPiece('g', 7,new Rook(board ,Color.BRANCA));
-		placeNewPiece('h', 7,new Rook(board ,Color.BRANCA));
+		placeNewPiece('b', 7,new Pawn(board ,Color.BRANCA));
+		placeNewPiece('c', 7,new Pawn(board ,Color.BRANCA));
+		placeNewPiece('d', 7,new Pawn(board ,Color.BRANCA));
+		placeNewPiece('e', 7,new Pawn(board ,Color.BRANCA));
+		placeNewPiece('f', 7,new Pawn(board ,Color.BRANCA));
+		placeNewPiece('g', 7,new Pawn(board ,Color.BRANCA));
+		placeNewPiece('h', 7,new Pawn(board ,Color.BRANCA));
 	}
 }
