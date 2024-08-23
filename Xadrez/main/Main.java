@@ -14,10 +14,10 @@ public class Main {
 	public static void main(String[] args) throws ChessException {
 		ChessMatch chessmatch = new ChessMatch();
 		Scanner sc = new Scanner(System.in);
-		
-		List <ChessPiece> capturedPieces = new ArrayList<>();
-		
-		while(true) {
+
+		List<ChessPiece> capturedPieces = new ArrayList<>();
+
+		while (!chessmatch.getCheckMate()) {
 			try {
 				UI.clearScreen();
 				UI.printMatch(chessmatch, capturedPieces);
@@ -30,17 +30,20 @@ public class Main {
 				System.out.println();
 				System.out.println("Casa de alvo: ");
 				ChessPosition target = UI.readChessPosition(sc);
-		
+
 				ChessPiece capturedPiece = chessmatch.performChessMove(source, target);
-				
-				if(capturedPiece != null) {
+
+				if (capturedPiece != null) {
 					capturedPieces.add(capturedPiece);
 				}
-			
-			}catch(ChessException e) {
+
+			} catch (ChessException e) {
 				System.out.println(e.getMessage());
-				sc.nextLine();			}
+				sc.nextLine();
+			}
 		}
+		UI.clearScreen();
+		UI.printMatch(chessmatch, capturedPieces);
 	}
 
 }

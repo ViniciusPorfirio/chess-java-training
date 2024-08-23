@@ -2,6 +2,7 @@ package chessLayer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import boardLayer.Board;
 import boardLayer.Piece;
@@ -42,6 +43,14 @@ public class ChessMatch {
 		return currentPlayer;
 	}
 	
+	public boolean getCheck() {
+		return check;
+	}
+	
+	public boolean getCheckMate() {
+		return checkMate;
+	}
+	
 	public ChessPiece[][] getPieces(){
 		ChessPiece[][] mat = new ChessPiece[board.getRows()][board.getColumns()];
 		for(int i=0 ; i<board.getColumns();i++) {
@@ -68,13 +77,34 @@ public class ChessMatch {
 		return capturedPiece;
 	}
 	
+	public void undoMove(Position source, Position target, Piece capturedPiece) {
+		Piece p = board.removePiece(target);
+		board.placePiece(p, source);
+		
+		if(capturedPiece != null) {
+			board.placePiece(capturedPiece, target);
+			capturedPieces.remove(capturedPiece);
+			piecesOnTheBoard.add((ChessPiece)capturedPiece);
+		}
+	}
+	
 	public ChessPiece performChessMove(ChessPosition originalPosition, ChessPosition targetPosition) {
 		Position originalP = originalPosition.toPosition();
 		Position target = targetPosition.toPosition();
 		validateOriginalPosition(originalP);
 		validateTargetPosition(originalP, target);
 		Piece capturedPiece = makeMove(originalP,target);
-		nextTurn();
+		if(testCheck(currentPlayer)) {
+			undoMove(originalPosition.toPosition(), targetPosition.toPosition(), capturedPiece);
+			throw new ChessException("Você não pode colocar seu rei em check");
+		}
+		check = (testCheck(opponent(currentPlayer))) ? true : false;
+		
+		if(testCheckMate(opponent(currentPlayer))) {
+			checkMate = true;
+		}else {
+			nextTurn();
+		}
 		return (ChessPiece)capturedPiece;
 	}
 	
@@ -102,13 +132,65 @@ public class ChessMatch {
 		return board.piece(position).possibleMoves();
 	}
 	
+	private boolean testCheck(Color color) {
+		Position kingPosition = king(color).getChessPosition().toPosition();
+		List <Piece> opponentPieces = piecesOnTheBoard.stream().filter(x -> ((ChessPiece)x).getColor() == opponent(color)).collect(Collectors.toList());
+		for(Piece p : opponentPieces) {
+			boolean[][] mat = p.possibleMoves();
+			if(mat[kingPosition.getRow()][kingPosition.getColumn()]) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public boolean testCheckMate(Color color) {
+		if(!testCheck(color)) {
+			return false;
+		}
+		List <ChessPiece> pieces = piecesOnTheBoard.stream().filter(x -> ((ChessPiece)x).getColor() == color).collect(Collectors.toList());
+		for(Piece p : pieces) {
+			boolean[][] mat = p.possibleMoves();
+			for(int i = 0; i<board.getRows();i++) {
+				for(int j = 0; j <board.getColumns();j++) {
+					if(mat[i][j]) {
+						Position source = ((ChessPiece) p).getChessPosition().toPosition();
+						Position target = new Position(i,j);
+						Piece capturedPiece = makeMove(source,target);
+						boolean testCheck = testCheck(color);
+						undoMove(source,target,capturedPiece);
+						if(!testCheck) {
+							return false;
+						}
+					}
+				}
+			}
+		}
+		return true;
+	}
+	
+	private Color opponent(Color color) {
+		return (color == Color.BRANCA) ? Color.PRETA : Color.BRANCA;
+	}
+	
+	private ChessPiece king(Color color) {
+		List <ChessPiece> pieces = piecesOnTheBoard.stream().filter(x -> ((ChessPiece)x).getColor() == color).collect(Collectors.toList());
+		for(Piece p : pieces) {
+			if(p instanceof King) {
+				return (ChessPiece) p;
+			}
+		}
+		throw new IllegalStateException("Não há rei da cor "+color+" no tabuleiro");
+	}
+	
 	private void initialSetup() throws ChessException {
 		placeNewPiece('d', 1,new King(board ,Color.PRETA));
 		placeNewPiece('a', 1,new Tower(board ,Color.PRETA));
-		placeNewPiece('a', 2,new Rook(board ,Color.PRETA));
+		//placeNewPiece('a', 2,new Rook(board ,Color.PRETA));
 		placeNewPiece('b', 2,new Rook(board ,Color.PRETA));
 		placeNewPiece('c', 2,new Rook(board ,Color.PRETA));
-		placeNewPiece('d', 2,new Rook(board ,Color.PRETA));
+		//placeNewPiece('d', 2,new Rook(board ,Color.PRETA));
 		placeNewPiece('e', 2,new Rook(board ,Color.PRETA));
 		placeNewPiece('f', 2,new Rook(board ,Color.PRETA));
 		placeNewPiece('g', 2,new Rook(board ,Color.PRETA));
