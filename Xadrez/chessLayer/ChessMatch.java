@@ -201,7 +201,7 @@ public class ChessMatch {
 		
 
 		placeNewPiece('a', 8,new Tower(board ,Color.BRANCA));
-		//placeNewPiece('b', 8,new Knight(board ,Color.BRANCA));
+		placeNewPiece('b', 8,new Knight(board ,Color.BRANCA));
 		placeNewPiece('c', 8,new Bishop(board ,Color.BRANCA));
 		//placeNewPiece('d', 8,new Queen(board ,Color.BRANCA));
 		placeNewPiece('e', 8,new King(board ,Color.BRANCA));
