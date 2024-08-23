@@ -7,9 +7,7 @@ import java.util.stream.Collectors;
 import boardLayer.Board;
 import boardLayer.Piece;
 import boardLayer.Position;
-import chessLayer.piecesTypes.King;
-import chessLayer.piecesTypes.Pawn;
-import chessLayer.piecesTypes.Tower;
+import chessLayer.piecesTypes.*;
 
 public class ChessMatch {
 	private Board board;
@@ -187,9 +185,12 @@ public class ChessMatch {
 	}
 	
 	private void initialSetup() throws ChessException {
-		placeNewPiece('d', 1,new King(board ,Color.PRETA));
 		placeNewPiece('a', 1,new Tower(board ,Color.PRETA));
-		//placeNewPiece('a', 2,new Rook(board ,Color.PRETA));
+		//placeNewPiece('b', 1,new Knight(board ,Color.PRETA));
+		placeNewPiece('c', 1,new Bishop(board ,Color.PRETA));
+		placeNewPiece('d', 1,new King(board ,Color.PRETA));
+		//placeNewPiece('e', 1,new Queen(board ,Color.PRETA));
+		placeNewPiece('a', 2,new Pawn(board ,Color.PRETA));
 		placeNewPiece('b', 2,new Pawn(board ,Color.PRETA));
 		placeNewPiece('c', 2,new Pawn(board ,Color.PRETA));
 		//placeNewPiece('d', 2,new Rook(board ,Color.PRETA));
@@ -199,8 +200,11 @@ public class ChessMatch {
 		placeNewPiece('h', 2,new Pawn(board ,Color.PRETA));
 		
 
-		placeNewPiece('e', 8,new King(board ,Color.BRANCA));
 		placeNewPiece('a', 8,new Tower(board ,Color.BRANCA));
+		//placeNewPiece('b', 8,new Knight(board ,Color.BRANCA));
+		placeNewPiece('c', 8,new Bishop(board ,Color.BRANCA));
+		//placeNewPiece('d', 8,new Queen(board ,Color.BRANCA));
+		placeNewPiece('e', 8,new King(board ,Color.BRANCA));
 		//placeNewPiece('a', 7,new Rook(board ,Color.BRANCA));
 		placeNewPiece('b', 7,new Pawn(board ,Color.BRANCA));
 		placeNewPiece('c', 7,new Pawn(board ,Color.BRANCA));
