@@ -25,7 +25,7 @@ public class Bishop extends ChessPiece {
 		p.setPositionValues(position.getRow() -1, position.getColumn()+1);
 		while(getBoard().PositionExists(p) && !getBoard().ThereIsAPiece(p)) {
 			mat[p.getRow()][p.getColumn()] = true;
-			p.setPositionValues(p.getRow() - 1,p.getRow() +1);
+			p.setPositionValues(p.getRow() - 1,p.getColumn() +1);
 		}
 		if(getBoard().PositionExists(p) && isThereOpponentPiece(p)) {
 			mat[p.getRow()][p.getColumn()]=true;
@@ -35,7 +35,7 @@ public class Bishop extends ChessPiece {
 		p.setPositionValues(position.getRow()+1, position.getColumn()+1);
 		while(getBoard().PositionExists(p) && !getBoard().ThereIsAPiece(p)) {
 			mat[p.getRow()][p.getColumn()] = true;
-			p.setPositionValues(p.getRow() +1,p.getRow() +1);
+			p.setPositionValues(p.getRow() +1,p.getColumn() +1);
 		}
 		if(getBoard().PositionExists(p) && isThereOpponentPiece(p)) {
 			mat[p.getRow()][p.getColumn()]=true;
@@ -45,7 +45,7 @@ public class Bishop extends ChessPiece {
 		p.setPositionValues(position.getRow()+1, position.getColumn()-1);
 		while(getBoard().PositionExists(p) && !getBoard().ThereIsAPiece(p)) {
 			mat[p.getRow()][p.getColumn()] = true;
-			p.setPositionValues(p.getRow() +1,p.getRow() -1);
+			p.setPositionValues(p.getRow() +1,p.getColumn() -1);
 		}
 		if(getBoard().PositionExists(p) && isThereOpponentPiece(p)) {
 			mat[p.getRow()][p.getColumn()]=true;
@@ -55,7 +55,7 @@ public class Bishop extends ChessPiece {
 		p.setPositionValues(position.getRow() -1, position.getColumn()-1);
 		while(getBoard().PositionExists(p) && !getBoard().ThereIsAPiece(p)) {
 			mat[p.getRow()][p.getColumn()] = true;
-			p.setPositionValues(p.getRow() -1,p.getRow() -1);
+			p.setPositionValues(p.getRow() -1,p.getColumn() -1);
 		}
 		if(getBoard().PositionExists(p) && isThereOpponentPiece(p)) {
 			mat[p.getRow()][p.getColumn()]=true;
