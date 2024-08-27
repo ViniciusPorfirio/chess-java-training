@@ -1,5 +1,6 @@
 package main;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -40,8 +41,14 @@ public class Main {
 				
 				if (chessmatch.getPromote() != null) {
 					System.out.println("Escolha para qual peça deseja promover o peão:");
-					System.out.println("P(Bispo)/N(Cavalo)/T(Torre)/Q(Rainha):");
-					String pieceType = sc.nextLine();
+					System.out.println("B(Bispo)/N(Cavalo)/T(Torre)/Q(Rainha):");
+					String pieceType = sc.nextLine().toUpperCase();
+					while(!pieceType.equals("B") && !pieceType.equals("N") && !pieceType.equals("R") && !pieceType.equals("Q")) {
+						System.out.println(pieceType + " não está disponivel para promoção!");
+						System.out.println("Escolha para qual peça deseja promover o peão:");
+						System.out.println("B(Bispo)/N(Cavalo)/T(Torre)/Q(Rainha):");
+						pieceType = sc.nextLine().toUpperCase();
+					}
 					chessmatch.replacePromotedPiece(pieceType);
 				}
 

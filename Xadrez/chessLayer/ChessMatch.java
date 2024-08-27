@@ -53,7 +53,7 @@ public class ChessMatch {
 	public ChessPiece getEnPassantVulnarable() {
 		return enPassantVulnerable;
 	}
-	
+
 	public ChessPiece getPromote() {
 		return promote;
 	}
@@ -178,14 +178,16 @@ public class ChessMatch {
 		}
 
 		ChessPiece movedPiece = (ChessPiece) board.piece(target);
-		
-		//Movimento especial - Promoção
-		promote=null;
-		if(movedPiece instanceof Pawn) {
-			if((movedPiece.getColor() == Color.BRANCA && target.getRow()==7) || (movedPiece.getColor() == Color.PRETA && target.getRow()==0)) {
-				promote = (ChessPiece)board.piece(target);
+
+		// Movimento especial - Promoção
+		promote = null;
+		if (movedPiece instanceof Pawn) {
+			if ((movedPiece.getColor() == Color.BRANCA && target.getRow() == 7)
+					|| (movedPiece.getColor() == Color.PRETA && target.getRow() == 0)) {
+				promote = (ChessPiece) board.piece(target);
+				//Rainha é colocada por padrão na promoção
 				promote = replacePromotedPiece("Q");
-				
+
 			}
 		}
 		check = (testCheck(opponent(currentPlayer))) ? true : false;
@@ -275,32 +277,33 @@ public class ChessMatch {
 	}
 
 	public ChessPiece replacePromotedPiece(String pieceType) {
-		if(promote == null) {
+		if (promote == null) {
 			throw new IllegalStateException("Não há peça para ser promovida");
 		}
-		if(!pieceType.equals("B") && !pieceType.equals("N") && !pieceType.equals("R") && !pieceType.equals("Q")) {
-			throw new InvalidParameterException(pieceType+" não está disponivel para promoção!");
-		}
-		
+
 		Position position = promote.getChessPosition().toPosition();
 		Piece p = board.removePiece(position);
 		piecesOnTheBoard.remove(p);
-		
+
 		ChessPiece newPiece = newPromotePiece(pieceType, promote.getColor());
 		board.placePiece(newPiece, position);
 		piecesOnTheBoard.add(newPiece);
-		
+
 		return newPiece;
 	}
-	
+
 	private ChessPiece newPromotePiece(String newPiece, Color color) {
-		if(newPiece.equals("B")) return new Bishop(board, color);
-		if(newPiece.equals("N")) return new Knight(board, color);
-		if(newPiece.equals("Q")) return new Queen(board, color);
-		if(newPiece.equals("B")) return new Bishop(board, color);
+		if (newPiece.equals("B"))
+			return new Bishop(board, color);
+		if (newPiece.equals("N"))
+			return new Knight(board, color);
+		if (newPiece.equals("Q"))
+			return new Queen(board, color);
+		if (newPiece.equals("B"))
+			return new Bishop(board, color);
 		return new Tower(board, color);
 	}
-	
+
 	private Color opponent(Color color) {
 		return (color == Color.BRANCA) ? Color.PRETA : Color.BRANCA;
 	}
@@ -318,14 +321,17 @@ public class ChessMatch {
 
 	private void initialSetup() throws ChessException {
 		placeNewPiece('a', 1, new Tower(board, Color.PRETA));
-		// placeNewPiece('b', 1,new Knight(board ,Color.PRETA));
-		// placeNewPiece('c', 1, new Bishop(board, Color.PRETA));
+		placeNewPiece('b', 1, new Knight(board, Color.PRETA));
+		placeNewPiece('c', 1, new Bishop(board, Color.PRETA));
 		placeNewPiece('d', 1, new Queen(board, Color.PRETA));
 		placeNewPiece('e', 1, new King(board, Color.PRETA, this));
+		placeNewPiece('f', 1, new Bishop(board, Color.PRETA));
+		placeNewPiece('g', 1, new Knight(board, Color.PRETA));
+		placeNewPiece('h', 1, new Tower(board, Color.PRETA));
 		placeNewPiece('a', 2, new Pawn(board, Color.PRETA, this));
 		placeNewPiece('b', 2, new Pawn(board, Color.PRETA, this));
 		placeNewPiece('c', 2, new Pawn(board, Color.PRETA, this));
-		// placeNewPiece('d', 2,new Pawn(board ,Color.PRETA,this));
+		placeNewPiece('d', 2, new Pawn(board, Color.PRETA, this));
 		placeNewPiece('e', 2, new Pawn(board, Color.PRETA, this));
 		placeNewPiece('f', 2, new Pawn(board, Color.PRETA, this));
 		placeNewPiece('g', 2, new Pawn(board, Color.PRETA, this));
@@ -336,7 +342,10 @@ public class ChessMatch {
 		placeNewPiece('c', 8, new Bishop(board, Color.BRANCA));
 		placeNewPiece('d', 8, new Queen(board, Color.BRANCA));
 		placeNewPiece('e', 8, new King(board, Color.BRANCA, this));
-		// placeNewPiece('a', 7,new Rook(board ,Color.BRANCA));
+		placeNewPiece('f', 8, new Bishop(board, Color.BRANCA));
+		placeNewPiece('g', 8, new Knight(board, Color.BRANCA));
+		placeNewPiece('h', 8, new Tower(board, Color.BRANCA));
+		placeNewPiece('a', 7, new Pawn(board, Color.BRANCA, this));
 		placeNewPiece('b', 7, new Pawn(board, Color.BRANCA, this));
 		placeNewPiece('c', 7, new Pawn(board, Color.BRANCA, this));
 		placeNewPiece('d', 7, new Pawn(board, Color.BRANCA, this));
