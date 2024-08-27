@@ -37,6 +37,13 @@ public class Main {
 				if (capturedPiece != null) {
 					capturedPieces.add(capturedPiece);
 				}
+				
+				if (chessmatch.getPromote() != null) {
+					System.out.println("Escolha para qual peça deseja promover o peão:");
+					System.out.println("P(Bispo)/N(Cavalo)/T(Torre)/Q(Rainha):");
+					String pieceType = sc.nextLine();
+					chessmatch.replacePromotedPiece(pieceType);
+				}
 
 			} catch (ChessException e) {
 				System.out.println(e.getMessage());
